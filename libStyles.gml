@@ -1,4 +1,4 @@
-// libStyles 1.0 written by Brian LaClair
+// libStyles 1.0.1 written by Brian LaClair
 // for documentation visit https://github.com/brianlaclair/libStyles
 
 #region Library Initialisation
@@ -47,7 +47,16 @@ function style_create() constructor {
 /// @function					style_set();
 /// @description				Sets the style(s)
 /// @param {...real} Style ID	The style ID to set
+/// @returns	{struct}		The replaced style			
 function style_set(style) {
+
+	var _returnStyle = {
+		font:	draw_get_font(),
+		halign: draw_get_halign(),
+		valign: draw_get_valign(),
+		color:	draw_get_color(),
+		alpha:	draw_get_alpha()
+	}
 
 	var _howMany = argument_count;
 	var _default = __style_define_list();
@@ -64,12 +73,16 @@ function style_set(style) {
 			}
 		}
 	}
+	
+	return _returnStyle;
+	
 }
 
-/// @function			style_reset();
-/// @description		Resets the style to default values
-function style_reset() {
-	style_set(style_default);	
+/// @function				style_reset();
+/// @description			Resets the style to default values
+/// @param	{real} 	[style]	Defaults to style_default
+function style_reset(_style = style_default) {
+	style_set(_style);
 }
 
 #endregion

@@ -36,6 +36,8 @@ As an example, let's check out two ways we could set the color of the style abov
     style_set(style);
 so in our example's case, we'd type `style_set(myFirstStyle);`
 
+*Note: as of the current release, style_set returns a new style with the previously set style values.*
+
 You can also stack styles - so let's say you have myFirstStyle which sets the draw color to black - but you also have another style called mySecondStyle which modifies the draw alpha. You could use both at the same time by calling `style_set(myFirstStyle, mySecondStyle);`
 It's worth noting that the subsequent styles defined in the style_set parameters will overwrite values that have already been set, if those values are set in the subsequent style.
 
@@ -44,5 +46,10 @@ You can easily reset the styles to a global default by calling:
 
     style_reset();
 
+There is additionally an optional parameter to reset to a different style, useful for situations where you'd like to revert to the previous draw settings.
+
+    _prev = style_set(myFirstStyle);
+    // Your draw calls
+    style_reset(_prev); // Resets to the values that were present before style_set was called
 
 The global default drawing settings can be modified by interacting with the global style `style_default` as you would with any other style. 
